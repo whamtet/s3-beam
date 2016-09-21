@@ -1,11 +1,11 @@
-# s3-beam
+# s3-beamer
 
-`s3-beam` is a Clojure/Clojurescript library designed to help you upload files
+`s3-beamer` is a Clojure/Clojurescript library designed to help you upload files
 from the browser to S3 (CORS upload).
 
 [](dependency)
 ```clojure
-[org.martinklepsch/s3-beam "0.5.2"] ;; latest release
+[whamtet/s3-beamer "0.6.0-SNAPSHOT"] ;; latest release
 ```
 [](/dependency)
 
@@ -26,7 +26,20 @@ For this reason this library consists of two parts:
 
 ### 1. Enable CORS on your S3 bucket
 
-Please follow Amazon's [official documentation](http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
+Please follow Amazon's [official documentation](http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).  An example permission document is
+
+```xml
+<CORSConfiguration>
+ <CORSRule>
+   <AllowedOrigin>http://www.example1.com</AllowedOrigin>
+
+   <AllowedMethod>PUT</AllowedMethod>
+   <AllowedMethod>POST</AllowedMethod>
+   <AllowedMethod>DELETE</AllowedMethod>
+
+   <AllowedHeader>*</AllowedHeader>
+ </CORSRule>
+```
 
 ### 2. Plug-in the route to sign uploads
 

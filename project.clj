@@ -1,9 +1,6 @@
-(defproject org.martinklepsch/s3-beam "0.5.2-SNAPSHOT"
-  :author "Martin Klepsch <http://www.martinklepsch.org>"
+(defproject whamtet/s3-beamer "0.6.0-SNAPSHOT"
   :description "CORS Upload to S3 via Clojure(script)"
-  :url "http://github.com/martinklepsch/s3-beam"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :url "http://github.com/whamtet/s3-beamer"
 
   :source-paths ["src/clj" "src/cljs"]
 
@@ -15,4 +12,4 @@
                  [ring/ring-codec "1.0.0" :scope "provided"]]
 
   :scm {:name "git"
-         :url "https://github.com/martinklepsch/s3-beam"})
+         :url "https://github.com/whamtet/s3-beamer"})

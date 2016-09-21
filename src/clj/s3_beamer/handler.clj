@@ -1,4 +1,4 @@
-(ns s3-beam.handler
+(ns s3-beamer.handler
   (:require [clojure.data.json :as json]
             [ring.util.codec :refer [base64-encode]])
   (:import (javax.crypto Mac)
