@@ -19,7 +19,7 @@
       (.append fd (name k) v))
     fd))
 
-(defn upload-file [text file success-fn error-fn upload-listener]
+(defn upload-file [text file success-fn error-fn upload-listener xhr-handler]
   (let [
          params (read-string text)
          form-data (form-data-from-map (dissoc params :action))
@@ -34,12 +34,13 @@
                                (set! (-> xhr .-upload .-onprogress) upload-listener)
                                (set! (-> xhr .-upload .-onload) success-fn)
                                (set! (-> xhr .-upload .-onerror) error-fn)
+                               (when xhr-handler (xhr-handler xhr))
                                xhr
                                ))}
          ]
     (js/$.ajax options)))
 
-(defn upload [{:keys [server-url file success-fn error-fn upload-listener sign-params]}]
+(defn upload [{:keys [server-url file success-fn error-fn upload-listener sign-params xhr-handler]}]
   (let [
          server-url (or server-url "/sign")
          xhr (XhrIo.)
@@ -50,7 +51,8 @@
                                                      file
                                                      success-fn
                                                      error-fn
-                                                     upload-listener))
+                                                     upload-listener
+                                                     xhr-handler))
 
     (when
       error-fn (events/listen xhr goog.net.EventType.ERROR error-fn))

@@ -86,6 +86,7 @@ created and signed is based on the bucket name.
    :success-fn success-fn
    :error-fn error-fn
    :upload-listener upload-listener
+   :xhr-handler xhr-handler
    })
 
 ```
@@ -94,5 +95,6 @@ created and signed is based on the bucket name.
 - `:sign-params` includes additional get parameters that will be passed to `:server-url`.
 - `:file` should be the file object obtained from a file input selector
 - `:upload-listener` will recieve partial upload events (useful for large files)
+- `:xhr-handler` will recieve the file upload xhr object immediately before the file is sent
 
 Please include jQuery on the frontend.

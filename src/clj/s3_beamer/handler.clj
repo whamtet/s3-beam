@@ -16,8 +16,7 @@
   "Generate policy for upload of `key` with `mime-type` to be uploaded
   within `expiration-window`, and `acl`."
   [bucket key mime-type expiration-window acl x-amz-credential x-amz-algorithm x-amz-date]
-  (ring.util.codec/base64-encode
-    (.getBytes (json/write-str { "expiration" (now-plus expiration-window)
+  (let [policy (json/write-str { "expiration" (now-plus expiration-window)
                                  "conditions" [{"bucket" bucket}
                                                {"acl" acl}
                                                ["starts-with" "$Content-Type" mime-type]
@@ -26,7 +25,11 @@
                                                {"x-amz-algorithm" x-amz-algorithm}
                                                {"x-amz-date" x-amz-date}
                                                {"success_action_status" "201"}]})
-               "UTF-8")))
+        ]
+    ;(println "got policy" policy)
+    (ring.util.codec/base64-encode
+      (.getBytes policy
+                 "UTF-8"))))
 
 (defn hmac-sha256 [k s]
   (.doFinal (doto (Mac/getInstance "HmacSHA256") (.init (SecretKeySpec. k "HmacSHA256"))) (.getBytes s "UTF-8")))
