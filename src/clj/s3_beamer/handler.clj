@@ -57,19 +57,20 @@
        )))
 
 (defn sign-upload [{:keys [file-name mime-type]}
-                   {:keys [bucket aws-zone aws-access-key aws-secret-key acl upload-url] :or {acl "public-read"}}]
+                   {:keys [bucket aws-zone aws-access-key aws-secret-key acl upload-url key] :or {acl "private"}}]
   (assert aws-access-key "AWS Access Key cannot be nil")
   (assert aws-secret-key "AWS Secret Key cannot be nil")
   (assert acl "ACL cannot be nil")
   (assert mime-type "Mime-type cannot be nil.")
   (let [yyyyMMdd (yyyyMMdd)
+        key (or key file-name)
         x-amz-credential (apply str (interpose "/" [aws-access-key yyyyMMdd aws-zone "s3" "aws4_request"]))
         x-amz-algorithm "AWS4-HMAC-SHA256"
         x-amz-date (x-amz-date)
-        p (policy bucket file-name mime-type 60 acl x-amz-credential x-amz-algorithm x-amz-date)
+        p (policy bucket key mime-type 60 acl x-amz-credential x-amz-algorithm x-amz-date)
         ]
     {:action (or upload-url (format "http://%s.s3.amazonaws.com" bucket))
-     :key    file-name
+     :key    key
      :Content-Type mime-type
      :policy p
      :acl    acl
@@ -79,14 +80,6 @@
      :x-amz-date x-amz-date
      :x-amz-signature (sign-version-4 aws-secret-key p aws-zone)}))
 
-(defn s3-sign
-  ([bucket aws-zone access-key secret-key]
-   (s3-sign bucket aws-zone access-key secret-key nil))
-  ([bucket aws-zone access-key secret-key upload-url]
-   (fn [request]
-     {:status 200
-      :body   (pr-str (sign-upload (:params request) {:bucket         bucket
-                                                      :aws-zone       aws-zone
-                                                      :aws-access-key access-key
-                                                      :aws-secret-key secret-key
-                                                      :upload-url     upload-url}))})))
+(defn s3-sign [a b]
+  {:status 200
+   :body (pr-str (sign-upload a b))})
