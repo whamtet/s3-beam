@@ -45,7 +45,7 @@ Please follow Amazon's [official documentation](http://docs.aws.amazon.com/Amazo
 
 ```clj
 (ns your.server
-  (:require [s3-beam.handler :as s3b]
+  (:require [s3-beamer.handler :as s3b]
             [compojure.core :refer [GET defroutes]]
             [compojure.route :refer [resources]]))
 
