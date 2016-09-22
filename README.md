@@ -20,7 +20,7 @@ For this reason this library consists of two parts:
 
 1. A pluggable route that will send back the required parameters for a
    given file-name & mime-type
-2. A client-side core.async pipeline setup that will retrieve the
+2. A client-side ajax wrapper that will retrieve the
    special parameters for a given File object, upload it to S3 and
    report back to you
 
