@@ -92,7 +92,7 @@ created and signed is based on the bucket name.
 
 - `:server-url` is the route defined in step 2.  Defaults to "/sign" if not provided
 - `:sign-params` includes additional get parameters that will be passed to `:server-url`.
-- `:file-to-upload` should be the file object obtained from a file input selector
+- `:file` should be the file object obtained from a file input selector
 - `:upload-listener` will recieve partial upload events (useful for large files)
 
 Please include jQuery on the frontend.
