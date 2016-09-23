@@ -60,7 +60,7 @@
        )))
 
 (defn sign-upload [{:keys [file-name mime-type]}
-                   {:keys [bucket aws-zone aws-access-key aws-secret-key acl upload-url key] :or {acl "private"}}]
+                   {:keys [bucket aws-zone aws-access-key aws-secret-key acl upload-url key accelerate?] :or {acl "private"}}]
   (assert aws-access-key "AWS Access Key cannot be nil")
   (assert aws-secret-key "AWS Secret Key cannot be nil")
   (assert acl "ACL cannot be nil")
@@ -71,8 +71,9 @@
         x-amz-algorithm "AWS4-HMAC-SHA256"
         x-amz-date (x-amz-date)
         p (policy bucket key mime-type 60 acl x-amz-credential x-amz-algorithm x-amz-date)
+        accelerate? (if accelerate? "-accelerate" "")
         ]
-    {:action (or upload-url (format "http://%s.s3.amazonaws.com" bucket))
+    {:action (or upload-url (format "http://%s.s3%s.amazonaws.com" bucket accelerate?))
      :key    key
      :Content-Type mime-type
      :policy p
