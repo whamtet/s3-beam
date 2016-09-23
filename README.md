@@ -39,6 +39,7 @@ Please follow Amazon's [official documentation](http://docs.aws.amazon.com/Amazo
 
    <AllowedHeader>*</AllowedHeader>
  </CORSRule>
+ </CORSConfiguration>
 ```
 
 ### 2. Plug-in the route to sign uploads
