@@ -8,7 +8,7 @@
                  [org.clojure/clojurescript "0.0-2371" :scope "provided"]
                  ;[com.google.javascript/closure-compiler "v20140814"]
                  [org.clojure/data.json "0.2.5"]
-                 [ring/ring-codec "1.0.0" :scope "provided"]]
+                 [ring/ring-codec "1.0.0"]]
 
   :scm {:name "git"
          :url "https://github.com/whamtet/s3-beamer"})
