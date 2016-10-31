@@ -73,7 +73,7 @@
         p (policy bucket key mime-type 60 acl x-amz-credential x-amz-algorithm x-amz-date)
         accelerate? (if accelerate? "-accelerate" "")
         ]
-    {:action (or upload-url (format "http://%s.s3%s.amazonaws.com" bucket accelerate?))
+    {:action (or upload-url (format "https://%s.s3%s.amazonaws.com" bucket accelerate?))
      :key    key
      :Content-Type mime-type
      :policy p
