@@ -1,4 +1,4 @@
-(defproject whamtet/s3-beamer "0.6.0-SNAPSHOT"
+(defproject whamtet/s3-beamer "0.6.1-SNAPSHOT"
   :description "CORS Upload to S3 via Clojure(script)"
   :url "http://github.com/whamtet/s3-beamer"
 
